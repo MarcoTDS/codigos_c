@@ -1,25 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Estrutura de um nó da lista
 typedef struct No {
     int valor;
     struct No* prox;
 } No;
 
-// Função para criar um novo nó
 No* criar_no(int valor) {
     No* novo_no = (No*)malloc(sizeof(No));
     if (novo_no == NULL) {
         printf("Erro ao alocar memoria!\n");
-        exit(1); // Termina o programa caso haja erro de alocação
+        exit(1);
     }
     novo_no->valor = valor;
     novo_no->prox = NULL;
     return novo_no;
 }
 
-// Função para inserir um elemento na lista de forma ordenada
 void inserir_elemento(No** head, int valor) {
     No* novo_no = criar_no(valor);
     if (*head == NULL || (*head)->valor >= valor) {
@@ -35,7 +32,6 @@ void inserir_elemento(No** head, int valor) {
     }
 }
 
-// Função para retirar um elemento da lista
 void retirar_elemento(No** head, int valor) {
     if (*head == NULL) {
         printf("Lista vazia!\n");
@@ -45,14 +41,12 @@ void retirar_elemento(No** head, int valor) {
     No* atual = *head;
     No* anterior = NULL;
 
-    // Se o primeiro nó for o que queremos remover
     if (atual != NULL && atual->valor == valor) {
-        *head = atual->prox; // O head passa a ser o próximo nó
-        free(atual); // Libera a memória do nó removido
+        *head = atual->prox; 
+        free(atual);
         return;
     }
 
-    // Busca pelo elemento na lista
     while (atual != NULL && atual->valor != valor) {
         anterior = atual;
         atual = atual->prox;
@@ -63,24 +57,21 @@ void retirar_elemento(No** head, int valor) {
         return;
     }
 
-    // Desconecta o nó da lista e libera sua memória
     anterior->prox = atual->prox;
     free(atual);
 }
 
-// Função para buscar um elemento na lista
 No* buscar_elemento(No* head, int valor) {
     No* atual = head;
     while (atual != NULL) {
         if (atual->valor == valor) {
-            return atual; // Retorna o ponteiro para o nó encontrado
+            return atual;
         }
         atual = atual->prox;
     }
-    return NULL; // Retorna NULL se não encontrou o elemento
+    return NULL; 
 }
 
-// Função para imprimir a lista
 void imprimir_lista(No* head) {
     if (head == NULL) {
         printf("Lista vazia!\n");
@@ -94,7 +85,6 @@ void imprimir_lista(No* head) {
     printf("\n");
 }
 
-// Função para contar o número de elementos na lista
 int contar_elementos(No* head) {
     int count = 0;
     No* atual = head;
@@ -105,9 +95,8 @@ int contar_elementos(No* head) {
     return count;
 }
 
-// Função principal que apresenta o menu e chama as funções conforme a escolha do usuário
 int main() {
-    No* lista = NULL; // Inicializa a lista vazia
+    No* lista = NULL;
     int opcao, valor;
     No* encontrado;
 
